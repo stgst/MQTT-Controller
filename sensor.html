@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>遙控車控制系統</title>
+    <style>
+        html {
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sensing flex justify-center" id="rotate">
+        <div class="container">
+            <div id="controller" class="relative w-72 h-72 bg-gray-300 rounded-full flex items-center justify-center">
+                <div id="knob" class="absolute w-12 h-12 bg-gray-700 rounded-full"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.9.1/mqtt.min.js"></script>
+<script>
+    const controller = document.getElementById('controller');
+    const knob = document.getElementById('knob');
+    let isDragging = false;
+    let startX, startY, knobStartX, knobStartY;
+
+    knob.addEventListener('touchstart', function (e) {
+        isDragging = true;
+
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+
+        // 紀錄控制柄當前的位置
+        knobStartX = knob.offsetLeft;
+        knobStartY = knob.offsetTop;
+    });
+
+    document.addEventListener('touchmove', function (e) {
+        if (isDragging) {
+            const touch = e.touches[0];
+
+            // 計算手指移動的距離
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+
+            // 計算控制柄的新位置
+            let newX = knobStartX + deltaX;
+            let newY = knobStartY + deltaY;
+
+            const rect = controller.getBoundingClientRect();
+            const centerX = rect.width / 2 - knob.offsetWidth / 2;
+            const centerY = rect.height / 2 - knob.offsetHeight / 2;
+
+            // 計算相對中心的偏移量
+            const dx = newX - centerX;
+            const dy = centerY - newY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // 限制控制柄在圓形範圍內
+            if (distance <= rect.width / 2 - knob.offsetWidth / 2) {
+                knob.style.left = `${newX}px`;
+                knob.style.top = `${newY}px`;
+                sendCommand(dx, dy);
+            }
+
+            // e.preventDefault(); // 防止觸摸事件導致的滾動等其他行為
+        }
+    });
+
+    document.addEventListener('touchend', function () {
+        isDragging = false;
+        knob.style.left = '50%';
+        knob.style.top = '50%';
+        knob.style.transform = 'translate(-50%, -50%)';
+        sendCommand(0, 0); // 重置方向
+    });
+
+    function calculateWheelSpeeds(dx, dy) {
+        const maxSpeed = 2; // 定義最大速度，假設速度範圍是 0 到 255
+        const scale = Math.sqrt(dx * dx + dy * dy); // 根據距離的長度來確定速度的比例
+        const direction = Math.atan2(dy, dx); // 計算角度來確定方向
+
+        // 針對每個輪子計算速度
+        let leftFrontSpeed = 0;
+        let rightFrontSpeed = 0;
+        let leftRearSpeed = 0;
+        let rightRearSpeed = 0;
+
+        // 根據方向來設定每個輪子的速度
+        if (direction >= -Math.PI / 4 && direction < Math.PI / 4) {
+            // 向右
+            leftFrontSpeed = maxSpeed * scale;
+            leftRearSpeed = maxSpeed * scale;
+            rightFrontSpeed = maxSpeed * scale * (1 - Math.abs(dx) / scale);
+            rightRearSpeed = maxSpeed * scale * (1 - Math.abs(dx) / scale);
+        } else if (direction >= Math.PI / 4 && direction < (3 * Math.PI) / 4) {
+            // 向前
+            leftFrontSpeed = maxSpeed * scale;
+            rightFrontSpeed = maxSpeed * scale;
+            leftRearSpeed = maxSpeed * scale;
+            rightRearSpeed = maxSpeed * scale;
+        } else if (direction >= -(3 * Math.PI) / 4 && direction < -Math.PI / 4) {
+            // 向後
+            leftFrontSpeed = -maxSpeed * scale;
+            rightFrontSpeed = -maxSpeed * scale;
+            leftRearSpeed = -maxSpeed * scale;
+            rightRearSpeed = -maxSpeed * scale;
+        } else {
+            // 向左
+            rightFrontSpeed = maxSpeed * scale;
+            rightRearSpeed = maxSpeed * scale;
+            leftFrontSpeed = maxSpeed * scale * (1 - Math.abs(dx) / scale);
+            leftRearSpeed = maxSpeed * scale * (1 - Math.abs(dx) / scale);
+        }
+
+        if (dx == 0 && dy == 0) {
+            leftFrontSpeed = 0;
+            rightFrontSpeed = 0;
+            leftRearSpeed = 0;
+            rightRearSpeed = 0;
+        }
+
+        return {
+            FL: Math.round(leftFrontSpeed),
+            FR: Math.round(rightFrontSpeed),
+            BL: Math.round(leftRearSpeed),
+            BR: Math.round(rightRearSpeed)
+        };
+    }
+
+    const client = mqtt.connect("ws://124.218.226.248:8080/mqtt", { clientId: "clientId-Ljzm8zUyM1" })
+
+    function sendCommand(dx, dy) {
+        const speeds = calculateWheelSpeeds(dx, dy);
+
+        client.publish("tschool/car/control", JSON.stringify(speeds));
+    }
+</script>
+
+</html>
