@@ -36,55 +36,93 @@
 </head>
 
 <body class="bg-gray-100">
-
     <div class="choose flex justify-center">
         <div class="container" style="flex-direction: row;">
-            <button
-                class="button text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                onclick="window.location.hash = 'rotate'">旋轉</button>
-            <button
-                class="button text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                onclick="window.location.hash = 'translation'">平移</button>
-            <button
-                class="button text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                onclick="window.location.hash = 'rod'">拉桿</button>
+            <button class="button text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" onclick="window.location.hash = 'rotate'">旋轉</button>
+            <button class="button text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" onclick="window.location.hash = 'translation'">平移</button>
+            <button class="button text-white bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" onclick="window.location.hash = 'rod'">拉桿</button>
         </div>
     </div>
     <hr class="bg-gray-300 h-1">
     <div class="rotate flex justify-center" id="rotate">
         <div class="container">
             <div class="row">
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(0, 180, 0, 180)">向左前移動</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, 180, 180, 180)">向前</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, 0, 180, 0)">向右前移動</button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(0, 1023, 0, 1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(0, 1023, 0, 1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向左前移動
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(1023, 1023, 1023, 1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(1023, 1023, 1023, 1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向前
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(1023, 0, 1023, 0)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(1023, 0, 1023, 0)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向右前移動
+                </button>
             </div>
             <div class="row">
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(-180, 180, -180, 180)">向左旋轉</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(0, 0, 0, 0)">停止</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, -180, 180, -180)">向右旋轉</button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(-1023, 1023, -1023, 1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(-1023, 1023, -1023, 1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向左旋轉
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(0, 0, 0, 0)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(0, 0, 0, 0)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    停止
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(1023, -1023, 180, -1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(1023, -1023, 180, -1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向右旋轉
+                </button>
             </div>
             <div class="row">
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(0, -180, 0, -180)">向左後移動</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(-180, -180, -180, -180)">向後</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(-180, 0, -180, 0)">向右後移動</button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(0, -1023, 0, -1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(0, -1023, 0, -1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向左後移動
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(-1023, -1023, -1023, -1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(-1023, -1023, -1023, -1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向後
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(-1023, 0, -1023, 0)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(-1023, 0, -1023, 0)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向右後移動
+                </button>
             </div>
         </div>
     </div>
@@ -92,37 +130,82 @@
     <div class="translation flex justify-center" id="translation">
         <div class="container">
             <div class="row">
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, 0, 0, 180)">向左前移動</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, 180, 180, 180)">向前</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, 0, 0, 180)">向右前移動</button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(0, 1023, 1023, 0)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(0, 1023, 1023, 0)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向左前移動
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(1023, 1023, 1023, 1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(1023, 1023, 1023, 1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向前
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(1023, 0, 0, 1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(1023, 0, 0, 1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向右前移動
+                </button>
             </div>
             <div class="row">
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(-180, 180, 180, -180)">向左平移</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(0, 0, 0, 0)">停止</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(180, -180, 180, -180)">向右平移</button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(-1023, 1023, 1023, -1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(-1023, 1023, 1023, -1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向左平移
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(0, 0, 0, 0)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(0, 0, 0, 0)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    停止
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(1023, -1023, -1023, 1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(1023, -1023, -1023, 1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向右平移
+                </button>
             </div>
             <div class="row">
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(0, -180, -180, 0)">向左後移動</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(-180, -180, -180, -180)">向後</button>
-                <button
-                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
-                    onclick="sendCommand(-180, 0, 0, -180)">向右後移動</button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(-1023, 0, 0, -1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(-1023, 0, 0, -1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向左後移動
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(-1023, -1023, -1023, -1023)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(-1023, -1023, -1023, -1023)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向後
+                </button>
+                <button 
+                    class="button text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2" 
+                    onmousedown="sendCommand(0, -1023, -1023, 0)" 
+                    onmouseup="sendCommand(0, 0, 0, 0)"
+                    ontouchstart="sendCommand(0, -1023, -1023, 0)" 
+                    ontouchend="sendCommand(0, 0, 0, 0)">
+                    向右後移動
+                </button>
             </div>
         </div>
     </div>
@@ -130,28 +213,45 @@
     <div class="rod flex justify-center" id="rod">
         <div class="container" style="flex-direction: row;">
             <!-- left -->
-            <input style="writing-mode: vertical-lr; direction: rtl; margin-right: 25vw"
-                class="w-10 h-32 bg-gray-300 rounded-lg appearance-none cursor-pointer" type="range" min="0" max="100"
-                step="1" value="0" oninput="slider('left', this.value, this.value)">
+            <input style="writing-mode: vertical-lr; direction: rtl; margin-right: 25vw; height: 50vh;" class="w-10 h-32 bg-gray-300 rounded-lg appearance-none cursor-pointer" type="range" min="-1023" max="1023"
+                step="1" value="0" oninput="slider('left', this.value, this.value, this)">
             <!-- right -->
-            <input style="writing-mode: vertical-lr; direction: rtl; margin-left: 25vw"
-                class="w-10 h-32 bg-gray-300 rounded-lg appearance-none cursor-pointer" type="range" min="0" max="100"
-                step="1" value="0" oninput="slider('right', this.value, this.value)">
+            <input style="writing-mode: vertical-lr; direction: rtl; margin-left: 25vw; height: 50vh;" class="w-10 h-32 bg-gray-300 rounded-lg appearance-none cursor-pointer" type="range" min="-1023" max="1023"
+                step="1" value="0" oninput="slider('right', this.value, this.value, this)">
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.9.1/mqtt.min.js"></script>
     <script>
+        let client;
 
-        const client = mqtt.connect("ws://124.218.226.248:8080/mqtt", { clientId: "clientId-Ljzm8zUyM1" })
+        function initializeMQTT() {
+            // 初始化 MQTT 客戶端
+            client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
 
-        client.on('connect', () => {
-            console.log("Connected");
-            client.subscribe("tschool/car/control")
-        })
+            client.on('connect', function () {
+                console.log('Connected to MQTT broker');
+            });
+
+            client.on('error', function (error) {
+                console.error('MQTT connection error: ', error);
+            });
+        }
 
         let right_wheels = [0, 0]
         let left_wheels = [0, 0]
-        function slider(direction, arg1, arg2) {
+        function slider(direction, arg1, arg2, element) {
+            const magneticRange = 200; // 定义磁吸范围
+
+            // 磁吸效果
+            if (Math.abs(arg1) < magneticRange) {
+                arg1 = 0;
+                element.value = 0;
+            }
+            if (Math.abs(arg2) < magneticRange) {
+                arg2 = 0;
+                element.value = 0;
+            }
+
             if (direction == "left") {
                 left_wheels[0] = arg1
                 left_wheels[1] = arg2
@@ -180,8 +280,9 @@
 
             client.publish("tschool/car/control", JSON.stringify(json));
             console.log('success')
-        }
 
+        }
+        initializeMQTT();
     </script>
 </body>
 
